@@ -1,8 +1,10 @@
 group 'com.austinv11.modules'
-version '1.0.0-SNAPSHOT'
+version '1.0.0'
 
 apply plugin: 'java'
 apply plugin: 'discord4j'
+apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'maven'
 
 sourceCompatibility = 1.8
 
@@ -10,14 +12,19 @@ discord {
     apiKey = new File("./credentials.txt").readLines().get(0)
 }
 
+tasks.jar.dependsOn(shadowJar)
+
 buildscript {
     repositories {
+        mavenCentral()
+        jcenter()
         maven {
             url  "https://jitpack.io"
         }
     }
     dependencies {
         classpath 'com.github.Discord4J-Addons:Discord4J-Gradle-Plugin:1.0.0'
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.3'
     }
 }
 

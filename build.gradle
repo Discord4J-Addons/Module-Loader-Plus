@@ -9,7 +9,9 @@ apply plugin: 'maven'
 sourceCompatibility = 1.8
 
 discord {
-    apiKey = new File("./credentials.txt").readLines().get(0)
+    File file = new File("./credentials.txt");
+    if (file.exists())
+        apiKey = file.readLines().get(0)
 }
 
 tasks.jar.dependsOn(shadowJar)

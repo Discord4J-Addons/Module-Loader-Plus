@@ -24,7 +24,8 @@ public class ModuleLoaderPlus implements IModule {
 		Set<Class<? extends IModule>> filteredModules =  modules.stream()
 																.filter(clazz -> 
 																		!Modifier.isAbstract(clazz.getModifiers()) 
-																		&& !Modifier.isInterface(clazz.getModifiers()))
+																		&& !Modifier.isInterface(clazz.getModifiers())
+																		&& !ModuleLoader.getModules().contains(clazz))
 																.collect(Collectors.toSet());
 		logger.info("{} internal modules located, loading them...", filteredModules.size());
 		filteredModules.forEach(ModuleLoader::addModuleClass);
